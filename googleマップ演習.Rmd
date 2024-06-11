@@ -1,0 +1,50 @@
+---
+title: "Googleマップ演習"
+output: html_document
+date: "2024-06-11"
+---
+
+```{r}
+d <- read.csv(file = 'https://stats.dip.jp/01_ds/data/campus_location_TIU.csv')
+
+library(DT)
+datatable(d)
+
+d <- read.csv(file = 'https://stats.dip.jp/01_ds/data/campus_location_TIU.csv')
+
+name1 <- '池袋C'
+address1 <- '〒170-0013 東京都豊島区東池袋４丁目４２−３１'
+lat1 <- 35.72931937350292
+lng1 <- 139.7212751131839
+
+add_data <- data.frame(name1,address1,lat1,lng1)
+names(add_data) <- c('name','address','lat','lng')
+d <- rbind(d,add_data)
+
+datatable(d)
+
+datatable(d)
+
+name2 <- '坂戸C'
+address2 <- '〒350-0245 埼玉県坂戸市四日市場８１−１'
+lat2 <- 35.93552389618114
+lng2 <- 139.35243284054098
+add_data2 <- data.frame(name2,address2,lat2,lng2)
+names(add_data2) <- c('name','address','lat','lng')
+
+d <- rbind(d,add_data2)
+
+datatable(d)
+
+library(leaflet)
+
+leaflet() %>%
+addTiles() %>% 
+addMarkers(lng = d$lng, lat = d$lat,
+           popup = paste0(d$name, '<br>', d$address)) %>% 
+addMiniMap(positio = 'topright') %>%
+addScaleBar(position="bottomleft")
+
+```
+
+
